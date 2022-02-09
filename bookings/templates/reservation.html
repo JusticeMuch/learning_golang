@@ -124,16 +124,26 @@
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.2.0/dist/js/datepicker-full.min.js"></script>
     <script src="https://unpkg.com/notie"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         const elem = document.getElementById('datepickerrange');
         const rangepicker = new DateRangePicker(elem, {
             // ...options
         });
 
-        function notify(msg, type){
+        function notify(msg, type) {
             notie.alert({
                 type: type,
                 text: msg,
+            })
+        }
+
+        function notifyModal(title, text, icon , confirmButtonText) {
+            Swal.fire({
+                title: title,
+                text: text,
+                icon: icon,
+                confirmButtonText: confirmButtonText
             })
         }
     </script>
