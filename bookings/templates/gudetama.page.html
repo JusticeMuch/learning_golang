@@ -1,0 +1,58 @@
+{{template "base" .}}
+
+{{define "content"}}
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-lg-6 col-md-6 mx-auto d-block">
+            <img src="../static/images/gudetama.png" class="img-fluid img-thumbnail" alt="">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <h1 class="text-center mt-4">Gudetama</h1>
+            <p>About an egg</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col text-center">
+            <a class="btn btn-dark" id="check-availability-btn" href="#">Check Availability</a>
+        </div>
+    </div>
+</div>
+
+{{end}}
+
+{{define "js"}}
+<script>
+    let prompt = Prompt();
+    let openDatesModalForm = () => {
+        let html = `
+                    <form id="check-availability-form" action="" method="post" novalidate class="needs-validation">
+                        <div class="form-row">
+                            <div class="col">
+                                <div class="row" id="reservation-dates-modal">
+                                    <div class="col">
+                                        <input type="text" disabled required name="start" class="form-control" id="start"
+                                            placeholder="Start Date">
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" disabled required name="end" class="form-control" id="end"
+                                            placeholder="End Date">
+                                    </div>
+    
+                                </div>
+    
+                            </div>
+                        </div>
+                    </form>
+                `;
+
+        prompt.custom({ msg: html, title: "Enter availablity dates" });
+    };
+    document.getElementById('check-availability-btn').addEventListener('click', openDatesModalForm)
+</script>
+{{end}}

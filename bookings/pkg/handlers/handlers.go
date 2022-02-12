@@ -46,6 +46,53 @@ func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
+//Gudetama is the gudetama page handler
+func (m *Repository) Gudetama(w http.ResponseWriter, r *http.Request) {
+
+	stringMap := make(map[string]string)
+	stringMap["test"] = "world"
+	render.RenderTemplate(w, "gudetama.page.html", &models.TemplateData{
+		StringMap: stringMap,
+	})
+}
+
+//Gintama is the gintama page handler
+func (m *Repository) Gintama(w http.ResponseWriter, r *http.Request) {
+
+	stringMap := make(map[string]string)
+	render.RenderTemplate(w, "gintama.page.html", &models.TemplateData{
+		StringMap: stringMap,
+	})
+}
+
+//Gintama is the gintama page handler
+func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
+
+	stringMap := make(map[string]string)
+	render.RenderTemplate(w, "reservation.page.html", &models.TemplateData{
+		StringMap: stringMap,
+	})
+}
+
+//Gintama is the gintama page handler
+func (m *Repository) MakeReservation(w http.ResponseWriter, r *http.Request) {
+
+	stringMap := make(map[string]string)
+	render.RenderTemplate(w, "make-reservation.page.html", &models.TemplateData{
+		StringMap: stringMap,
+	})
+}
+
+//Gintama is the gintama page handler
+func (m *Repository) Contact(w http.ResponseWriter, r *http.Request) {
+
+	stringMap := make(map[string]string)
+	render.RenderTemplate(w, "contact.page.html", &models.TemplateData{
+		StringMap: stringMap,
+	})
+}
+
+
 func addValues(x, y int) int {
 	return x + y
 }
