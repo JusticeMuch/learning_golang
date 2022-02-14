@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/JusticeMuch/bookings/pkg/config"
@@ -29,7 +30,7 @@ func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
 	// fmt.Fprintf(w, "This is the home page")
 	remoteIp := r.RemoteAddr
 	m.App.Session.Put(r.Context(), "remote_ip", remoteIp)
-	render.RenderTemplate(w, "home.page.html", &models.TemplateData{})
+	render.RenderTemplate(w, r ,"home.page.html", &models.TemplateData{})
 }
 
 //ABout is the about page handler
@@ -41,7 +42,7 @@ func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
 	// _, _ = fmt.Fprintf(w, fmt.Sprintf("This is the about page and 2 + 2 is %d", sum))
 	remoteIP := m.App.Session.GetString(r.Context(), "remote_ip")
 	stringMap["remote_ip"] = remoteIP
-	render.RenderTemplate(w, "about.page.html", &models.TemplateData{
+	render.RenderTemplate(w, r, "about.page.html", &models.TemplateData{
 		StringMap: stringMap,
 	})
 }
@@ -51,7 +52,7 @@ func (m *Repository) Gudetama(w http.ResponseWriter, r *http.Request) {
 
 	stringMap := make(map[string]string)
 	stringMap["test"] = "world"
-	render.RenderTemplate(w, "gudetama.page.html", &models.TemplateData{
+	render.RenderTemplate(w, r, "gudetama.page.html", &models.TemplateData{
 		StringMap: stringMap,
 	})
 }
@@ -60,7 +61,7 @@ func (m *Repository) Gudetama(w http.ResponseWriter, r *http.Request) {
 func (m *Repository) Gintama(w http.ResponseWriter, r *http.Request) {
 
 	stringMap := make(map[string]string)
-	render.RenderTemplate(w, "gintama.page.html", &models.TemplateData{
+	render.RenderTemplate(w, r,"gintama.page.html", &models.TemplateData{
 		StringMap: stringMap,
 	})
 }
@@ -69,16 +70,23 @@ func (m *Repository) Gintama(w http.ResponseWriter, r *http.Request) {
 func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
 
 	stringMap := make(map[string]string)
-	render.RenderTemplate(w, "reservation.page.html", &models.TemplateData{
+	render.RenderTemplate(w, r, "reservation.page.html", &models.TemplateData{
 		StringMap: stringMap,
 	})
+}
+
+func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
+	start := r.Form.Get("start")
+	end := r.Form.Get("end")
+
+	w.Write([]byte(fmt.Sprintf("start date is %s and end date is %s", start, end)))
 }
 
 //Gintama is the gintama page handler
 func (m *Repository) MakeReservation(w http.ResponseWriter, r *http.Request) {
 
 	stringMap := make(map[string]string)
-	render.RenderTemplate(w, "make-reservation.page.html", &models.TemplateData{
+	render.RenderTemplate(w, r, "make-reservation.page.html", &models.TemplateData{
 		StringMap: stringMap,
 	})
 }
@@ -87,7 +95,7 @@ func (m *Repository) MakeReservation(w http.ResponseWriter, r *http.Request) {
 func (m *Repository) Contact(w http.ResponseWriter, r *http.Request) {
 
 	stringMap := make(map[string]string)
-	render.RenderTemplate(w, "contact.page.html", &models.TemplateData{
+	render.RenderTemplate(w,r, "contact.page.html", &models.TemplateData{
 		StringMap: stringMap,
 	})
 }
