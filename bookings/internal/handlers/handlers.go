@@ -6,9 +6,9 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/JusticeMuch/bookings/pkg/config"
-	"github.com/JusticeMuch/bookings/pkg/models"
-	"github.com/JusticeMuch/bookings/pkg/render"
+	"github.com/JusticeMuch/bookings/internal/config"
+	"github.com/JusticeMuch/bookings/internal/models"
+	"github.com/JusticeMuch/bookings/internal/render"
 )
 
 var Repo *Repository
@@ -85,23 +85,23 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 }
 
 type jsonResponse struct {
-	OK      bool `json:"ok"`
-	Message string 	`json:"message"`
+	OK      bool   `json:"ok"`
+	Message string `json:"message"`
 }
 
 //handler for request , sends json response
 func (m *Repository) ReservationJSON(w http.ResponseWriter, r *http.Request) {
-	resp := jsonResponse {
-		OK: true,
-		Message : "Available!",
+	resp := jsonResponse{
+		OK:      true,
+		Message: "Available!",
 	}
 
-	out,err := json.MarshalIndent(resp, "", "   ");
-	if err != nil{
+	out, err := json.MarshalIndent(resp, "", "   ")
+	if err != nil {
 		log.Println(err)
 	}
 
-	w.Header().Set("Content-type", "application/json");
+	w.Header().Set("Content-type", "application/json")
 	w.Write(out)
 }
 

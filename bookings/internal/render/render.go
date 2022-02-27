@@ -8,8 +8,8 @@ import (
 	"net/http"
 	"path/filepath"
 
-	"github.com/JusticeMuch/bookings/pkg/config"
-	"github.com/JusticeMuch/bookings/pkg/models"
+	"github.com/JusticeMuch/bookings/internal/config"
+	"github.com/JusticeMuch/bookings/internal/models"
 	"github.com/justinas/nosurf"
 )
 
@@ -28,7 +28,7 @@ func AddDefaultData(td *models.TemplateData, r *http.Request) *models.TemplateDa
 }
 
 // RenderTemplate renders a template
-func RenderTemplate(w http.ResponseWriter, r *http.Request ,html string, td *models.TemplateData) {
+func RenderTemplate(w http.ResponseWriter, r *http.Request, html string, td *models.TemplateData) {
 	var tc map[string]*template.Template
 
 	if app.UseCache {

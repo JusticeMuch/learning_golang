@@ -7,9 +7,9 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/JusticeMuch/bookings/pkg/config"
-	"github.com/JusticeMuch/bookings/pkg/handlers"
-	"github.com/JusticeMuch/bookings/pkg/render"
+	"github.com/JusticeMuch/bookings/internal/config"
+	"github.com/JusticeMuch/bookings/internal/handlers"
+	"github.com/JusticeMuch/bookings/internal/render"
 
 	"github.com/alexedwards/scs/v2"
 )
