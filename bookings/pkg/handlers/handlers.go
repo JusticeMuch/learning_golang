@@ -1,7 +1,9 @@
 package handlers
 
 import (
+	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/JusticeMuch/bookings/pkg/config"
@@ -30,7 +32,7 @@ func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
 	// fmt.Fprintf(w, "This is the home page")
 	remoteIp := r.RemoteAddr
 	m.App.Session.Put(r.Context(), "remote_ip", remoteIp)
-	render.RenderTemplate(w, r ,"home.page.html", &models.TemplateData{})
+	render.RenderTemplate(w, r, "home.page.html", &models.TemplateData{})
 }
 
 //ABout is the about page handler
@@ -61,7 +63,7 @@ func (m *Repository) Gudetama(w http.ResponseWriter, r *http.Request) {
 func (m *Repository) Gintama(w http.ResponseWriter, r *http.Request) {
 
 	stringMap := make(map[string]string)
-	render.RenderTemplate(w, r,"gintama.page.html", &models.TemplateData{
+	render.RenderTemplate(w, r, "gintama.page.html", &models.TemplateData{
 		StringMap: stringMap,
 	})
 }
@@ -82,6 +84,27 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(fmt.Sprintf("start date is %s and end date is %s", start, end)))
 }
 
+type jsonResponse struct {
+	OK      bool `json:"ok"`
+	Message string 	`json:"message"`
+}
+
+//handler for request , sends json response
+func (m *Repository) ReservationJSON(w http.ResponseWriter, r *http.Request) {
+	resp := jsonResponse {
+		OK: true,
+		Message : "Available!",
+	}
+
+	out,err := json.MarshalIndent(resp, "", "   ");
+	if err != nil{
+		log.Println(err)
+	}
+
+	w.Header().Set("Content-type", "application/json");
+	w.Write(out)
+}
+
 //Gintama is the gintama page handler
 func (m *Repository) MakeReservation(w http.ResponseWriter, r *http.Request) {
 
@@ -95,11 +118,10 @@ func (m *Repository) MakeReservation(w http.ResponseWriter, r *http.Request) {
 func (m *Repository) Contact(w http.ResponseWriter, r *http.Request) {
 
 	stringMap := make(map[string]string)
-	render.RenderTemplate(w,r, "contact.page.html", &models.TemplateData{
+	render.RenderTemplate(w, r, "contact.page.html", &models.TemplateData{
 		StringMap: stringMap,
 	})
 }
-
 
 func addValues(x, y int) int {
 	return x + y
